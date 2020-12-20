@@ -60,19 +60,15 @@ export class JwtService {
    */
   public verifyJwt = (jwt: string): Promise<ServerTypes.Token> => {
     return new Promise((resolve, reject) => {
-      jsonwebtoken.verify(
-        jwt,
-        this.secret,
-        (err: VerifyErrors, decoded: object | string) => {
-          if (err) {
-            reject(this.VALIDATION_ERROR);
-          } else {
-            const token: any = decoded;
-            // return decoded token
-            resolve(token);
-          }
+      jsonwebtoken.verify(jwt, this.secret, (err, decoded) => {
+        if (err) {
+          reject(this.VALIDATION_ERROR);
+        } else {
+          const token: any = decoded;
+          // return decoded token
+          resolve(token);
         }
-      );
+      });
     });
   };
 }
